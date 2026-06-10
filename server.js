@@ -10,11 +10,11 @@ app.use(express.json());
 
 // Ligar ao MySQL
 const db = mysql.createConnection({
-  host: '127.0.0.1',
-  port: 3306,
-  user: 'root',
-  password: '1234567890',
-  database: 'saudefamilia'
+  host: process.env.MYSQLHOST || process.env.DB_HOST || '127.0.0.1',
+  port: process.env.MYSQLPORT || 3306,
+  user: process.env.MYSQLUSER || process.env.DB_USER || 'root',
+  password: process.env.MYSQLPASSWORD || process.env.DB_PASSWORD || '1234567890',
+  database: process.env.MYSQLDATABASE || process.env.DB_NAME || 'saudefamilia'
 });
 
 db.connect((err) => {
@@ -29,7 +29,7 @@ db.connect((err) => {
 const authRoutes = require('./routes/auth')(db);
 app.use('/api/auth', authRoutes);
 
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   console.log('Servidor na porta ' + PORT);
 });
