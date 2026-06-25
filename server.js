@@ -27,7 +27,9 @@ db.connect((err) => {
 
 // Rotas
 const authRoutes = require('./routes/auth')(db);
+const membrosRoutes = require('./routes/membros')(db);
 app.use('/api/auth', authRoutes);
+app.use('/api/membros', membrosRoutes);
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
